@@ -28,6 +28,6 @@
 #' @rdname DataType
 #' @export
 struct <- function(...){
-  xp <- struct_(.fields(list(...)))
+  xp <- struct_(.fields(list2(...)))
   shared_ptr(`arrow::StructType`, xp)
 }

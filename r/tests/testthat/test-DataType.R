@@ -322,6 +322,12 @@ test_that("struct type works as expected", {
   expect_null(x$GetFieldByName("z"))
 })
 
+test_that("struct can splice", {
+  types <- list(x = int32(), y = int32())
+  type <- struct(!!!types)
+  expect_equal(type, struct(x = int32(), y = int32()))
+})
+
 test_that("DictionaryType works as expected (ARROW-3355)", {
   d <- dictionary(int32(), utf8())
   expect_equal(d, d)
