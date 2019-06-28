@@ -818,6 +818,10 @@ std::shared_ptr<arrow::DataType> InferType(SEXP x) {
                                                      InferType(VECTOR_ELT(x, i)));
         }
         return std::make_shared<StructType>(std::move(fields));
+      } else if (Rf_inherits(x, "vctrs_list_of")) {
+        SEXP ptype = Rf_getAttrib(x, symbols::ptype);
+        auto value_type = InferType(ptype);
+        return std::make_shared<ListType>(value_type);
       }
       break;
     default:

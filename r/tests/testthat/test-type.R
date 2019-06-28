@@ -55,3 +55,9 @@ test_that("type() can infer struct types from data frames", {
   df <- tibble::tibble(x = 1:10, y = rnorm(10), z = letters[1:10])
   expect_equal(type(df), struct(x = int32(), y = float64(), z = utf8()))
 })
+
+test_that("type() recognize vctrs_list_of", {
+  expect_equal(type(vctrs::list_of(1L, c(1L, 2L, 3L))), list_of(int32()))
+  expect_equal(type(vctrs::list_of(1, 2, 1:3)), list_of(float64()))
+  expect_equal(type(vctrs::list_of(mtcars, mtcars)), list_of(struct(!!!purrr::map(mtcars, type))))
+})
