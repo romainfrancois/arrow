@@ -148,6 +148,9 @@ type.default <- function(x) {
 #' @export
 `type.arrow::Column` <- function(x) x$type
 
+.infer_list_ptype <- function(data) {
+  vec_type_common(!!!data)
+}
 
 #----- metadata
 

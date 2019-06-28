@@ -61,3 +61,8 @@ test_that("type() recognize vctrs_list_of", {
   expect_equal(type(vctrs::list_of(1, 2, 1:3)), list_of(float64()))
   expect_equal(type(vctrs::list_of(mtcars, mtcars)), list_of(struct(!!!purrr::map(mtcars, type))))
 })
+
+test_that("type() infers via vctrs::vec_type_common()", {
+  expect_equal(type(list(1, c(2, 3))), list_of(float64()))
+  expect_equal(type(list(mtcars, mtcars)), list_of(struct(!!!purrr::map(mtcars, type))))
+})

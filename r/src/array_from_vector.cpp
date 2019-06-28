@@ -820,8 +820,12 @@ std::shared_ptr<arrow::DataType> InferType(SEXP x) {
         return std::make_shared<StructType>(std::move(fields));
       } else if (Rf_inherits(x, "vctrs_list_of")) {
         SEXP ptype = Rf_getAttrib(x, symbols::ptype);
-        auto value_type = InferType(ptype);
-        return std::make_shared<ListType>(value_type);
+        return std::make_shared<ListType>(InferType(ptype));
+      } else {
+        Rcpp::Environment ns_arrow(Rcpp::Environment::namespace_env("arrow"));
+        Rcpp::Function infer(ns_arrow[".infer_list_ptype"]);
+        Rcpp::Shield<SEXP> ptype(infer(x));
+        return std::make_shared<ListType>(InferType(ptype));
       }
       break;
     default:
