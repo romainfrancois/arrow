@@ -32,7 +32,7 @@ DatasetFactory <- R6Class("DatasetFactory", inherit = ArrowObject,
       shared_ptr(Dataset, ptr)$..dispatch()
     },
     Inspect = function(unify_schemas = FALSE) {
-      shared_ptr(Schema, dataset___DatasetFactory__Inspect(self, unify_schemas))
+      dataset___DatasetFactory__Inspect(self, unify_schemas)
     }
   )
 )
@@ -42,7 +42,7 @@ DatasetFactory$create <- function(x,
                                   partitioning = NULL,
                                   ...) {
   if (is_list_of(x, "DatasetFactory")) {
-    return(shared_ptr(DatasetFactory, dataset___UnionDatasetFactory__Make(x)))
+    return(dataset___UnionDatasetFactory__Make(x))
   }
   if (!is.string(x)) {
     stop("'x' must be a string or a list of DatasetFactory", call. = FALSE)
