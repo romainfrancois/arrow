@@ -20,9 +20,10 @@
 #include <arrow/memory_pool.h>
 
 // [[arrow::export]]
-std::shared_ptr<arrow::MemoryPool> MemoryPool__default() {
-  return std::shared_ptr<arrow::MemoryPool>(arrow::default_memory_pool(),
-                                            [](arrow::MemoryPool* not_deleted) {});
+R6 MemoryPool__default() {
+  auto pool = std::shared_ptr<arrow::MemoryPool>(arrow::default_memory_pool(),
+                                                 [](arrow::MemoryPool* not_deleted) {});
+  return cpp11::r6(pool, "MemoryPool");
 }
 
 // [[arrow::export]]
