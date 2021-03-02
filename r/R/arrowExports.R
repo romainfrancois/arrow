@@ -1268,6 +1268,10 @@ ExportRecordBatch <- function(batch, array_ptr, schema_ptr){
     invisible(.Call(`_arrow_ExportRecordBatch`, batch, array_ptr, schema_ptr))
 }
 
+Table__from_dots <- function(lst, schema_sxp){
+    .Call(`_arrow_Table__from_dots`, lst, schema_sxp)
+}
+
 vec_to_arrow <- function(x, s_type){
     .Call(`_arrow_vec_to_arrow`, x, s_type)
 }
@@ -1582,10 +1586,6 @@ all_record_batches <- function(lst){
 
 Table__from_record_batches <- function(batches, schema_sxp){
     .Call(`_arrow_Table__from_record_batches`, batches, schema_sxp)
-}
-
-Table__from_dots <- function(lst, schema_sxp){
-    .Call(`_arrow_Table__from_dots`, lst, schema_sxp)
 }
 
 GetCpuThreadPoolCapacity <- function(){
